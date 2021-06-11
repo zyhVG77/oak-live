@@ -1,2 +1,2 @@
-# pearl-live
+# PearlLive
 A simple live app
