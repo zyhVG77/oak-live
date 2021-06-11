@@ -122,7 +122,7 @@ export default {
     //   }
     // },
     onMessageWasSent (message) {
-      // TODO Handle message send
+      this.websocket.send(JSON.stringfy(message))
     },
     openChat () {
       this.isChatOpen = true
@@ -146,6 +146,4 @@ export default {
 </script>
 
 <style type='scss' scoped>
-.chat-container {
-}
 </style>
