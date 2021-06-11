@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # live-stream-app
 
 ## Project setup
@@ -22,3 +23,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+=======
+# PearlLive
+A simple live app
+>>>>>>> 843eec50030b5ed28871ac5888b56ef5617c24ad
