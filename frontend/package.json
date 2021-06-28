@@ -13,16 +13,21 @@
   },
   "main": "background.js",
   "dependencies": {
+    "@stomp/stompjs": "^6.1.0",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "ffmpeg-device-list-parser": "^0.1.0",
     "fluent-ffmpeg": "^2.1.2",
     "flv.js": "^1.5.0",
     "vue": "^2.6.11",
+    "vue-axios": "^3.2.4",
     "vue-beautiful-chat": "^2.5.0",
     "vue-material": "^1.0.0-beta-15",
     "vue-plugin-load-script": "^1.3.2",
     "vue-router": "^3.2.0",
-    "vuex": "^3.4.0"
+    "vuelidate": "^0.7.6",
+    "vuex": "^3.4.0",
+    "websocket": "^1.0.34"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
