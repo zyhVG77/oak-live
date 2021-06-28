@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.livestream.mapper.ChatMapper">
+    <insert id="insertChatMessage" parameterType="ChatMessage">
+        INSERT INTO chat_message (type, content, meeting_id, user_id, send_time)
+        VALUES (#{type}, #{content}, #{meetingId}, #{sender.uid}, #{sendTime})
+    </insert>
+</mapper>

@@ -1,0 +1,17 @@
+server:
+  port: 8803
+
+spring:
+  datasource:
+    url: jdbc:mysql://yourserverip:3306/livestream
+    username: live_admin
+    password: Livestream123#
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  type-aliases-package: com.livestream.entity
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 30
