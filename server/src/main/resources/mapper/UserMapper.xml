@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.mybatis.example.BlogMapper">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.livestream.mapper.UserMapper">
+    <select id="getAccountByUsername" parameterType="String" resultType="UserAccount">
+        SELECT * FROM user_account
+        WHERE username = #{username}
+    </select>
 
+    <select id="getUserInfoByAccountId" parameterType="int" resultMap="userInfoResult">
+        SELECT A.uid as uid,
+               B.uid as account_uid,
+               name, gender, email, username, password
+        FROM user_info A RIGHT JOIN user_account B ON A.account_id = B.uid
+        WHERE A.account_id = #{id}
+    </select>
+
+    <resultMap id="userInfoResult" type="UserInfo">
+        <id property="uid" column="uid" />
+        <result property="name" column="name" />
+        <result property="gender" column="gender" />
+        <result property="email" column="email" />
+        <association property="account" javaType="UserAccount">
+            <id property="uid" column="account_uid" />
+            <result property="username" column="username" />
+            <result property="password" column="password" />
+        </association>
+    </resultMap>
 </mapper>

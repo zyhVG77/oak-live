@@ -1,7 +1,56 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.mybatis.example.BlogMapper">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.livestream.mapper.MeetingMapper">
+    <insert id="addNewMeeting" parameterType="Meeting" useGeneratedKeys="true" keyProperty="uid">
+        INSERT INTO meeting (name, auth_required, password, host_id, stream_id)
+        VALUES (#{name}, #{authRequired}, #{password}, #{host.uid}, #{streamId})
+    </insert>
+    <select id="getMeetingByStreamId" parameterType="String" resultMap="meetingResult">
+        SELECT A.uid as uid,
+               B.uid as user_uid,
+               A.name as name,
+               B.name as user_name,
+               auth_required, password, stream_id,
+               gender, email
+        FROM meeting A LEFT JOIN user_info B ON A.host_id = B.uid
+        WHERE stream_id = #{streamId}
+    </select>
+    <insert id="userJoinMeeting" parameterType="int">
+        INSERT INTO user_meeting (user_id, meeting_id) VALUES (#{userId}, #{meetingId})
+    </insert>
+    <select id="getParticipantsByMeetingId" parameterType="int" resultMap="userOfMeetingResult">
+        SELECT A.uid as uid,
+               name, gender, email, account_id, username
+        FROM user_meeting A
+            LEFT JOIN user_info B ON A.user_id = B.uid
+            LEFT JOIN user_account C ON  B.account_id = C.uid
+        WHERE A.meeting_id = #{meetingId}
+    </select>
 
+    <resultMap id="userOfMeetingResult" type="UserInfo">
+        <id property="uid" column="uid" />
+        <result property="name" column="name" />
+        <result property="gender" column="gender" />
+        <result property="email" column="email" />
+        <association property="account" javaType="UserAccount">
+            <id property="uid" column="account_uid" />
+            <result property="username" column="username" />
+        </association>
+    </resultMap>
+
+    <resultMap id="meetingResult" type="Meeting">
+        <id property="uid" column="uid" />
+        <result property="name" column="name" />
+        <result property="authRequired" column="auth_required" />
+        <result property="password" column="password" />
+        <result property="streamId" column="stream_id" />
+        <association property="host" javaType="UserInfo">
+            <id property="uid" column="user_uid" />
+            <result property="name" column="user_name" />
+            <result property="gender" column="gender" />
+            <result property="email" column="email" />
+        </association>
+    </resultMap>
 </mapper>
